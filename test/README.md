@@ -198,8 +198,6 @@ npm run test:pw:update
 npm run test:pw:update:linux
 ```
 
-The Linux script mounts the repo root (not just `sdk/`) into the Docker container because the build needs `../lib/` for shared `@commonTypes` types.
-
 ### Debugging CI Failures
 
 1. Go to the failed GitHub Actions run
