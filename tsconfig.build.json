@@ -1,0 +1,24 @@
+{
+  // Declaration-only build for the npm package. The JavaScript is produced by
+  // vite.npm.config.js; this pass only adds the .d.ts tree next to it.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src",
+    "outDir": "dist-npm",
+
+    // Consumers resolve the emitted specifiers themselves, and tsc does not
+    // rewrite them at emit. A ".ts" suffix surviving into a published .d.ts
+    // would not resolve for anyone, so the extension is disallowed here.
+    "allowImportingTsExtensions": false
+  },
+
+  // Scoped to the package entry rather than all of src/. Following the import
+  // graph from src/index.ts keeps two files out of the published types:
+  // src/main.ts, the UMD entry, and src/config.d.ts, whose `Window`
+  // augmentation would land in every consumer's global scope.
+  "include": [],
+  "files": ["src/index.ts", "src/vite-env.d.ts"]
+}

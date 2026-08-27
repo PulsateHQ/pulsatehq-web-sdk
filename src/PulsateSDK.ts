@@ -1,5 +1,5 @@
 import { Feed } from "./Feed/Feed";
-import { InAppLarge } from "./Inapp/InAppLarge.ts";
+import { InAppLarge } from "./Inapp/InAppLarge";
 import { Statistics } from "./Statistics";
 import {
   InAppNotificationLarge,

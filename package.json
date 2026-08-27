@@ -9,7 +9,7 @@
     "test:pw": "npx playwright test --config=test/playwright/playwright.config.ts",
     "test:pw:update": "npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots",
     "test:pw:update:linux": "cd .. && docker run --rm -v \"$(pwd):/work\" -w /work/sdk mcr.microsoft.com/playwright:v1.58.2-noble bash -c 'npm ci && npm run build && npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots'",
-    "build:npm": "vite build --config vite.npm.config.js"
+    "build:npm": "vite build --config vite.npm.config.js && tsc -p tsconfig.build.json && node scripts/fix-dts-specifiers.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
@@ -31,9 +31,14 @@
   "types": "./dist-npm/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist-npm/index.d.ts",
-      "import": "./dist-npm/index.js",
-      "require": "./dist-npm/index.cjs"
+      "import": {
+        "types": "./dist-npm/index.d.ts",
+        "default": "./dist-npm/index.js"
+      },
+      "require": {
+        "types": "./dist-npm/index.d.cts",
+        "default": "./dist-npm/index.cjs"
+      }
     },
     "./styles.css": "./dist-npm/styles.css",
     "./package.json": "./package.json"
