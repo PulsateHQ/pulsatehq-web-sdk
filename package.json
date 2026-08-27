@@ -1,7 +1,6 @@
 {
-  "name": "sdk",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@pulsatehq/web-sdk",
+  "version": "0.0.0-dev",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,12 +8,37 @@
     "build:prod": "tsc && vite build",
     "test:pw": "npx playwright test --config=test/playwright/playwright.config.ts",
     "test:pw:update": "npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots",
-    "test:pw:update:linux": "cd .. && docker run --rm -v \"$(pwd):/work\" -w /work/sdk mcr.microsoft.com/playwright:v1.58.2-noble bash -c 'npm ci && npm run build && npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots'"
+    "test:pw:update:linux": "cd .. && docker run --rm -v \"$(pwd):/work\" -w /work/sdk mcr.microsoft.com/playwright:v1.58.2-noble bash -c 'npm ci && npm run build && npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots'",
+    "build:npm": "vite build --config vite.npm.config.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "serve": "^14.2.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
-  }
+  },
+  "description": "Pulsate Web SDK: in-app notifications, feed and event tracking for websites.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PulsateHQ/pulsatehq-web-sdk.git"
+  },
+  "files": [
+    "dist-npm"
+  ],
+  "main": "./dist-npm/index.cjs",
+  "module": "./dist-npm/index.js",
+  "types": "./dist-npm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist-npm/index.d.ts",
+      "import": "./dist-npm/index.js",
+      "require": "./dist-npm/index.cjs"
+    },
+    "./styles.css": "./dist-npm/styles.css",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ]
 }
