@@ -5,9 +5,14 @@ declare global {
 }
 
 import PulsateSDKModel from "./PulsateSDK";
+import { setApiUrl } from "./apiUrl";
 import "./styles/preview.css";
 
 (function (p) {
+  // Supplied at build time so the stage and production bundles can target
+  // different middleware hosts. Falls back to production when unset.
+  setApiUrl(import.meta.env.VITE_API_URL);
+
   var Pulsate = new PulsateSDKModel(p.PulsateSDK.q);
   p.PulsateSDK.init = Pulsate.addUser;
   p.PulsateSDK.addUser = Pulsate.addUser;

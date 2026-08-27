@@ -1,3 +1,4 @@
+import { getApiUrl } from "../apiUrl";
 import { GUID, UserActionKey } from "../types/lib";
 import {
   FeedPostNotification,
@@ -409,7 +410,7 @@ export class Feed {
       }
 
       if (target.dataset.destination === "deeplink" && target.dataset.url) {
-        fetch(`${import.meta.env.VITE_API_URL}/api/v1/middleware/deeplink`, {
+        fetch(`${getApiUrl()}/api/v1/middleware/deeplink`, {
           method: "POST",
           body: JSON.stringify({ url: target.dataset.url }),
           headers: {

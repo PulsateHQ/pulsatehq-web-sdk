@@ -1,3 +1,4 @@
+import { getApiUrl } from "./apiUrl";
 import { GUID, User, UserActionKey } from "./types/lib";
 import { Feed, InappEventPayload } from "./types/notification.type";
 import PWSError from "./PWSError";
@@ -106,7 +107,7 @@ export function startSession(userAlias: GUID, key: GUID) {
   };
 
   return post(
-    `${import.meta.env.VITE_API_URL}/api/v1/session/start`,
+    `${getApiUrl()}/api/v1/session/start`,
     body,
     key
   );
@@ -126,7 +127,7 @@ export function endSession(userAlias: GUID, key: GUID) {
     occurredAt: Date.now().toString(),
   };
 
-  return post(`${import.meta.env.VITE_API_URL}/api/v1/session/end`, body, key);
+  return post(`${getApiUrl()}/api/v1/session/end`, body, key);
 }
 
 export function updateSession(
@@ -146,7 +147,7 @@ export function updateSession(
     };
 
   return post(
-    `${import.meta.env.VITE_API_URL}/api/v1/session/update`,
+    `${getApiUrl()}/api/v1/session/update`,
     body,
     key
   );
@@ -158,7 +159,7 @@ export function getInapp(userAlias: GUID, campaignGuid: GUID, key: GUID) {
   };
 
   return get(
-    `${import.meta.env.VITE_API_URL}/api/v1/notification/inapp`,
+    `${getApiUrl()}/api/v1/notification/inapp`,
     query,
     key
   );
@@ -170,7 +171,7 @@ export function fetchFeed(userAlias: GUID, key: GUID): Promise<Feed> {
   };
 
   return get(
-    `${import.meta.env.VITE_API_URL}/api/v1/notification/feed`,
+    `${getApiUrl()}/api/v1/notification/feed`,
     query,
     key
   );
@@ -181,7 +182,7 @@ export function fetchBranding(userAlias: GUID, key: GUID) {
     alias: userAlias,
   };
 
-  return get(`${import.meta.env.VITE_API_URL}/api/v1/branding`, query, key);
+  return get(`${getApiUrl()}/api/v1/branding`, query, key);
 }
 
 export async function saveStatistic(
@@ -192,7 +193,7 @@ export async function saveStatistic(
   },
   key: GUID
 ) {
-  return post(`${import.meta.env.VITE_API_URL}/api/v1/statistics`, data, key);
+  return post(`${getApiUrl()}/api/v1/statistics`, data, key);
 }
 
 export async function deleteNotification(
@@ -201,7 +202,7 @@ export async function deleteNotification(
   key: GUID
 ) {
   return put(
-    `${import.meta.env.VITE_API_URL}/api/v1/delete_notification`,
+    `${getApiUrl()}/api/v1/delete_notification`,
     {
       guid: userAlias,
       alias: userAlias,
@@ -213,7 +214,7 @@ export async function deleteNotification(
 
 export async function saveInappEvent(data: InappEventPayload, key: GUID) {
   return post(
-    `${import.meta.env.VITE_API_URL}/api/v1/notification/inapp_events`,
+    `${getApiUrl()}/api/v1/notification/inapp_events`,
     data,
     key
   );

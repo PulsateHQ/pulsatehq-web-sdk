@@ -1,7 +1,8 @@
+import { getApiUrl } from "../apiUrl";
 export function attachStylesheet() {
   const link = document.createElement("link");
   link.rel = "stylesheet";
-  link.href = `${import.meta.env.VITE_API_URL}/web-sdk.css`;
+  link.href = `${getApiUrl()}/web-sdk.css`;
   document.head.appendChild(link);
 }
 
