@@ -15,6 +15,17 @@ import { endSession, fetchBranding, startSession, updateSession } from "./api";
 import { GUID, User } from "./types/lib";
 import { DOM } from "./DOM";
 
+export interface PulsateSDKModelOptions {
+  /**
+   * Whether to pull the stylesheet from the middleware at runtime.
+   *
+   * True for the UMD bundle, where the stylesheet is served next to the script.
+   * The npm package sets this to false and ships the CSS inside the package, so
+   * that a pinned version never loads styles it was not published with.
+   */
+  injectStylesheet?: boolean;
+}
+
 type WaitingEvents =
   | "addUser"
   | "endSession"
@@ -38,6 +49,8 @@ export default class PulsateSDKModel {
   #session: "active" | "inactive" = "inactive";
 
   constructor(...args: any[]) {
+    const options: PulsateSDKModelOptions = args[1] || {};
+
     this.#clientKey = args[0].find((a: any) => a.key)?.key || null;
     this.user = args[0].find((a: any) => a.alias) || null;
 
@@ -66,7 +79,9 @@ export default class PulsateSDKModel {
     this.setErrorHandler = this.setErrorHandler.bind(this);
     this.getInappNotification = this.getInappNotification.bind(this);
 
-    DOM.attachStylesheet();
+    if (options.injectStylesheet !== false) {
+      DOM.attachStylesheet();
+    }
 
     if (this.isActiveIntegration) {
       this.startUserSession(showInapp)

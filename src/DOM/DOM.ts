@@ -1,4 +1,5 @@
 import { getApiUrl } from "../apiUrl";
+
 export function attachStylesheet() {
   const link = document.createElement("link");
   link.rel = "stylesheet";
