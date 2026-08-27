@@ -18,7 +18,7 @@
     "vite": "^5.0.8"
   },
   "description": "Pulsate Web SDK: in-app notifications, feed and event tracking for websites.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PulsateHQ/pulsatehq-web-sdk.git"
