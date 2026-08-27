@@ -1,0 +1,20 @@
+{
+  "name": "sdk",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build --mode stage",
+    "build:prod": "tsc && vite build",
+    "test:pw": "npx playwright test --config=test/playwright/playwright.config.ts",
+    "test:pw:update": "npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots",
+    "test:pw:update:linux": "cd .. && docker run --rm -v \"$(pwd):/work\" -w /work/sdk mcr.microsoft.com/playwright:v1.58.2-noble bash -c 'npm ci && npm run build && npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots'"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "serve": "^14.2.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  }
+}

@@ -1,0 +1,7 @@
+# Diff images generated on test failure
+**/snapshots/__diff__/
+**/__diff_output__/
+
+# Playwright test results
+test-results/
+.playwright/

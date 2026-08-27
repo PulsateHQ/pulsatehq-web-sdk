@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WEB SDK DEV</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../feed/index.html">Feed</a></li>
+      </ul>
+    </nav>
+    <script>
+      (function (p, u, l, s, a, t, e) {
+        // add a queue event here
+        var PulsateSDK = PulsateSDK || {};
+        PulsateSDK.init =
+          PulsateSDK.init ||
+          function () {
+            (PulsateSDK.q = PulsateSDK.q || []).push(...arguments);
+          };
+        PulsateSDK.addUser = PulsateSDK.init;
+        PulsateSDK.endSession = PulsateSDK.init.bind(null, { c: "endSession" });
+        PulsateSDK.showFeed = function () {
+          PulsateSDK.init({ c: "showFeed", args: arguments });
+        };
+        PulsateSDK.getUnreadCount = function () {
+          PulsateSDK.init({ c: "getUnreadCount", args: arguments });
+        };
+        PulsateSDK.setErrorHandler = function () {
+          PulsateSDK.init({ c: "setErrorHandler", args: arguments });
+        };
+        PulsateSDK.saveEvent = function () {
+          PulsateSDK.init({ c: "saveEvent", args: arguments });
+        };
+        PulsateSDK.getInappNotification = function () {
+          PulsateSDK.init({ c: "getInappNotification", args: arguments });
+        };
+
+        p.PulsateSDK = PulsateSDK;
+        PulsateSDK.init({ key: a });
+        var x = document.createElement(l);
+        x.type = "module";
+        x.async = true;
+        // x.src = s;
+        x.src = "./src/main.ts";
+        var y = u.getElementsByTagName(l)[0];
+        y.parentNode.insertBefore(x, y);
+      })(
+        window,
+        document,
+        "script",
+        "https://web.pulsatehq.com/web-sdk.js",
+        // "<YOUR-WEB-SDK-KEY-HERE>"
+        "<YOUR-WEB-SDK-KEY-HERE>"
+      );
+    </script>
+
+    <script>
+      PulsateSDK.setErrorHandler((error) => {
+        console.log("Error:", error);
+      });
+
+      // PulsateSDK.init({ showInapp: false });
+      PulsateSDK.addUser(
+        {
+          alias: "5ae07b2a4753364695030000",
+          guid: "5ae07b2a4753364695030000",
+          firstName: "John",
+          lastName: "Doe",
+          email: "test@test.pl",
+          phone: null,
+        },
+        { showInapp: true }
+      );
+
+      // PulsateSDK.getInappNotification((notification) => {
+      //   console.log("Notification:", notification);
+      //   if (!notification) return;
+      //   const backdrop = document.createElement("div");
+      //   backdrop.classList.add("pws-backdrop");
+      //   document.body.appendChild(backdrop);
+      //   document.body.appendChild(notification);
+      // });
+
+      // setTimeout(() => {
+      //   // PulsateSDK.getUnreadCount(({unreadCount}) => console.log('Unread count:', unreadCount))
+      //   PulsateSDK.addUser({
+      //     alias: "123",
+      //     guid: "321",
+      //     firstName: "John",
+      //     lastName: "Doe",
+      //     email: "test@test.pl",
+      //   });
+      // }, 3000);
+    </script>
+  </body>
+</html>

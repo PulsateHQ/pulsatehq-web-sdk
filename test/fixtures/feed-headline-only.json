@@ -1,0 +1,47 @@
+{
+  "categories": [],
+  "total_unread": 1,
+  "inbox_items": [
+    {
+      "guid": "feed-headline-only-guid-001",
+      "campaign_guid": "feed-headline-only-campaign-001",
+      "inbox_item_guid": "inbox-headline-only-001",
+      "is_campaign_unread": true,
+      "type": "card",
+      "allow_reply": false,
+      "last_interaction_at": 1735689600,
+      "expiry_at": 1893456000,
+      "front": [
+        {
+          "type": "headline",
+          "active": true,
+          "position": 0,
+          "attrs": [
+            {
+              "text": "System Maintenance Scheduled"
+            }
+          ]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "btn_color": "",
+              "destination": "",
+              "destination_type": "dismiss",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "OK",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#28518c"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

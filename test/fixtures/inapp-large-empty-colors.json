@@ -1,0 +1,69 @@
+{
+  "in_app_notification": {
+    "allow_reply": false,
+    "campaign_guid": "test-campaign-guid-empty-colors",
+    "created_at": "2026-01-01T00:00:00Z",
+    "guid": "test-notification-guid-empty-colors",
+    "position": "top",
+    "size": "large",
+    "type": "personal",
+    "front": [
+      {
+        "type": "image",
+        "active": true,
+        "position": 1,
+        "attrs": [
+          {
+            "height": 200,
+            "width": 400,
+            "image_url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%234A90D9'/%3E%3Ctext x='200' y='110' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EEmpty Colors%3C/text%3E%3C/svg%3E",
+            "name": "empty-colors-image"
+          }
+        ]
+      },
+      {
+        "type": "headline",
+        "active": true,
+        "position": 2,
+        "attrs": [{ "text": "No Branding Colors" }]
+      },
+      {
+        "type": "text",
+        "active": true,
+        "position": 3,
+        "attrs": [{ "text": "This campaign has empty color values — buttons fall back to CSS class defaults." }]
+      },
+      {
+        "type": "call_to_action",
+        "active": true,
+        "position": 4,
+        "attrs": [
+          {
+            "btn_color": "",
+            "destination": "",
+            "destination_type": "url",
+            "destination_url": "https://example.com/empty",
+            "in_app_events": null,
+            "label": "Primary Fallback",
+            "order_number": 0,
+            "show_in_app": true,
+            "show_btn": true,
+            "txt_color": ""
+          },
+          {
+            "btn_color": "",
+            "destination": "",
+            "destination_type": "dismiss",
+            "destination_url": "",
+            "in_app_events": null,
+            "label": "Secondary Fallback",
+            "order_number": 1,
+            "show_in_app": true,
+            "show_btn": true,
+            "txt_color": ""
+          }
+        ]
+      }
+    ]
+  }
+}

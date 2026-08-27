@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InApp Large - Visual Test</title>
+    <link rel="stylesheet" href="../../dist/web-sdk.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #f5f5f5;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      (function (p) {
+        var PulsateSDK = {};
+        PulsateSDK.init = function () {
+          (PulsateSDK.q = PulsateSDK.q || []).push(...arguments);
+        };
+        PulsateSDK.addUser = PulsateSDK.init;
+        PulsateSDK.endSession = PulsateSDK.init.bind(null, { c: 'endSession' });
+        PulsateSDK.showFeed = function () {
+          PulsateSDK.init({ c: 'showFeed', args: arguments });
+        };
+        PulsateSDK.getUnreadCount = function () {
+          PulsateSDK.init({ c: 'getUnreadCount', args: arguments });
+        };
+        PulsateSDK.setErrorHandler = function () {
+          PulsateSDK.init({ c: 'setErrorHandler', args: arguments });
+        };
+        PulsateSDK.saveEvent = function () {
+          PulsateSDK.init({ c: 'saveEvent', args: arguments });
+        };
+        PulsateSDK.getInappNotification = function () {
+          PulsateSDK.init({ c: 'getInappNotification', args: arguments });
+        };
+        p.PulsateSDK = PulsateSDK;
+        PulsateSDK.init({ key: 'test-client-key-for-visual-tests' });
+      })(window);
+
+      PulsateSDK.addUser(
+        {
+          alias: 'visual-test-user',
+          guid: 'visual-test-user',
+          firstName: 'Test',
+          lastName: 'User',
+          email: 'test@example.com',
+        },
+        { showInapp: true }
+      );
+    </script>
+    <script src="../../dist/web-sdk.umd.cjs"></script>
+  </body>
+</html>

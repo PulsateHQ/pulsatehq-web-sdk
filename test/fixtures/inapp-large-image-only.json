@@ -1,0 +1,45 @@
+{
+  "in_app_notification": {
+    "allow_reply": false,
+    "campaign_guid": "test-campaign-guid-003",
+    "created_at": "2026-01-01T00:00:00Z",
+    "guid": "test-notification-guid-003",
+    "position": "top",
+    "size": "large",
+    "type": "personal",
+    "front": [
+      {
+        "type": "image",
+        "active": true,
+        "position": 1,
+        "attrs": [
+          {
+            "height": 400,
+            "width": 600,
+            "image_url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400'%3E%3Crect width='600' height='400' fill='%232E7D32'/%3E%3Ctext x='300' y='190' text-anchor='middle' fill='white' font-size='28' font-family='Arial'%3EPromo Image%3C/text%3E%3Ctext x='300' y='230' text-anchor='middle' fill='%23A5D6A7' font-size='16' font-family='Arial'%3E(image-only campaign)%3C/text%3E%3C/svg%3E",
+            "name": "promo-image"
+          }
+        ]
+      },
+      {
+        "type": "call_to_action",
+        "active": true,
+        "position": 2,
+        "attrs": [
+          {
+            "btn_color": "",
+            "destination": "",
+            "destination_type": "dismiss",
+            "destination_url": "",
+            "in_app_events": null,
+            "label": "Close",
+            "order_number": 0,
+            "show_in_app": true,
+            "show_btn": true,
+            "txt_color": "#28518c"
+          }
+        ]
+      }
+    ]
+  }
+}

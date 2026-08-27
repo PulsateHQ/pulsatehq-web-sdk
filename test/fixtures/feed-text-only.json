@@ -1,0 +1,98 @@
+{
+  "categories": [],
+  "total_unread": 1,
+  "inbox_items": [
+    {
+      "guid": "feed-text-only-guid-001",
+      "campaign_guid": "feed-text-only-campaign-001",
+      "inbox_item_guid": "inbox-text-only-001",
+      "is_campaign_unread": true,
+      "type": "card",
+      "allow_reply": false,
+      "last_interaction_at": 1735689600,
+      "expiry_at": 1893456000,
+      "front": [
+        {
+          "type": "headline",
+          "active": true,
+          "position": 0,
+          "attrs": [
+            {
+              "text": "Policy Update Notice"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "text": "Our privacy policy has been updated. Tap to read the full details."
+            }
+          ]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 2,
+          "attrs": [
+            {
+              "btn_color": "#28518c",
+              "destination": "",
+              "destination_type": "card_back",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "Read More",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ],
+      "back": [
+        {
+          "type": "heading",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "text": "Privacy Policy Update"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 2,
+          "attrs": [
+            {
+              "text": "We have updated our data retention and cookie usage policies. These changes take effect on April 1, 2026. Please review them at your convenience."
+            }
+          ]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 3,
+          "attrs": [
+            {
+              "btn_color": "#28518c",
+              "destination": "",
+              "destination_type": "dismiss",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "Back to Feed",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

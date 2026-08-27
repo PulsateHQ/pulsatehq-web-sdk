@@ -1,0 +1,98 @@
+{
+  "categories": [],
+  "total_unread": 1,
+  "inbox_items": [
+    {
+      "guid": "feed-richmedia-guid-001",
+      "campaign_guid": "feed-richmedia-campaign-001",
+      "inbox_item_guid": "inbox-richmedia-001",
+      "is_campaign_unread": true,
+      "type": "card",
+      "allow_reply": false,
+      "last_interaction_at": 1735689600,
+      "expiry_at": 1893456000,
+      "front": [
+        {
+          "type": "rich_media",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "height": 200,
+              "width": 350,
+              "image_url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='200'%3E%3Crect width='350' height='200' fill='%239C27B0'/%3E%3Ctext x='175' y='100' text-anchor='middle' fill='white' font-size='18' font-family='Arial'%3ERich Media%3C/text%3E%3Ctext x='175' y='130' text-anchor='middle' fill='%23E1BEE7' font-size='14' font-family='Arial'%3E(GIF content)%3C/text%3E%3C/svg%3E",
+              "name": "richmedia-card",
+              "custom_data": {
+                "type": "gif"
+              }
+            }
+          ]
+        },
+        {
+          "type": "headline",
+          "active": true,
+          "position": 2,
+          "attrs": [{ "text": "Rich Media Content" }]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 3,
+          "attrs": [{ "text": "This card demonstrates rich media content rendering." }]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 4,
+          "attrs": [
+            {
+              "btn_color": "#9C27B0",
+              "destination": "",
+              "destination_type": "card_back",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "Learn More",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ],
+      "back": [
+        {
+          "type": "heading",
+          "active": true,
+          "position": 1,
+          "attrs": [{ "text": "Rich Media Details" }]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 2,
+          "attrs": [{ "text": "Full details about the rich media content." }]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 3,
+          "attrs": [
+            {
+              "btn_color": "#9C27B0",
+              "destination": "",
+              "destination_type": "dismiss",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "Back to Feed",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

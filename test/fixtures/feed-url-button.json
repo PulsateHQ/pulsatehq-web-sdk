@@ -1,0 +1,63 @@
+{
+  "categories": [],
+  "total_unread": 1,
+  "inbox_items": [
+    {
+      "guid": "feed-url-guid-001",
+      "campaign_guid": "feed-url-campaign-001",
+      "inbox_item_guid": "inbox-url-001",
+      "is_campaign_unread": true,
+      "type": "card",
+      "allow_reply": false,
+      "last_interaction_at": 1735689600,
+      "expiry_at": 1893456000,
+      "front": [
+        {
+          "type": "image",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "height": 200,
+              "width": 350,
+              "image_url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='200'%3E%3Crect width='350' height='200' fill='%232E7D32'/%3E%3Ctext x='175' y='110' text-anchor='middle' fill='white' font-size='20' font-family='Arial'%3EURL Card%3C/text%3E%3C/svg%3E",
+              "name": "url-card-image"
+            }
+          ]
+        },
+        {
+          "type": "headline",
+          "active": true,
+          "position": 2,
+          "attrs": [{ "text": "Visit Our Website" }]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 3,
+          "attrs": [{ "text": "Click the button below to open our website in a new tab." }]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 4,
+          "attrs": [
+            {
+              "btn_color": "#2E7D32",
+              "destination": "",
+              "destination_type": "url",
+              "destination_url": "https://example.com/promo",
+              "in_app_events": null,
+              "label": "Open Website",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ],
+      "back": []
+    }
+  ]
+}

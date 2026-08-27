@@ -1,0 +1,230 @@
+{
+  "categories": [],
+  "total_unread": 2,
+  "inbox_items": [
+    {
+      "guid": "feed-post-guid-001",
+      "campaign_guid": "feed-campaign-001",
+      "inbox_item_guid": "inbox-001",
+      "is_campaign_unread": true,
+      "type": "card",
+      "allow_reply": false,
+      "last_interaction_at": 1735689600,
+      "expiry_at": 1893456000,
+      "front": [
+        {
+          "type": "image",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "height": 200,
+              "width": 350,
+              "image_url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='200'%3E%3Crect width='350' height='200' fill='%234A90D9'/%3E%3Ctext x='175' y='110' text-anchor='middle' fill='white' font-size='20' font-family='Arial'%3ECard 1 Image%3C/text%3E%3C/svg%3E",
+              "name": "card-1-image"
+            }
+          ]
+        },
+        {
+          "type": "headline",
+          "active": true,
+          "position": 2,
+          "attrs": [
+            {
+              "text": "Special Offer for You"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 3,
+          "attrs": [
+            {
+              "text": "Check out our exclusive deal — available for a limited time only."
+            }
+          ]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 4,
+          "attrs": [
+            {
+              "btn_color": "#28518c",
+              "destination": "",
+              "destination_type": "card_back",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "View Details",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ],
+      "back": [
+        {
+          "type": "heading",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "text": "Offer Details"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "active": true,
+          "position": 2,
+          "attrs": [
+            {
+              "rows": [
+                { "label": "Discount", "value": "25% off" },
+                { "label": "Valid Until", "value": "March 31, 2026" },
+                { "label": "Code", "value": "SAVE25" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 3,
+          "attrs": [
+            {
+              "text": "Use this code at checkout to redeem your discount."
+            }
+          ]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 4,
+          "attrs": [
+            {
+              "btn_color": "#28518c",
+              "destination": "",
+              "destination_type": "dismiss",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "Back to Feed",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "guid": "feed-post-guid-002",
+      "campaign_guid": "feed-campaign-002",
+      "inbox_item_guid": "inbox-002",
+      "is_campaign_unread": false,
+      "type": "card",
+      "allow_reply": false,
+      "last_interaction_at": 1735603200,
+      "expiry_at": 1893456000,
+      "front": [
+        {
+          "type": "image",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "height": 200,
+              "width": 350,
+              "image_url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='200'%3E%3Crect width='350' height='200' fill='%23D94A4A'/%3E%3Ctext x='175' y='110' text-anchor='middle' fill='white' font-size='20' font-family='Arial'%3ECard 2 Image%3C/text%3E%3C/svg%3E",
+              "name": "card-2-image"
+            }
+          ]
+        },
+        {
+          "type": "headline",
+          "active": true,
+          "position": 2,
+          "attrs": [
+            {
+              "text": "Important Update"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 3,
+          "attrs": [
+            {
+              "text": "We have updated our terms of service. Please review the changes."
+            }
+          ]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 4,
+          "attrs": [
+            {
+              "btn_color": "#D94A4A",
+              "destination": "",
+              "destination_type": "card_back",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "Read More",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ],
+      "back": [
+        {
+          "type": "heading",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "text": "Terms of Service Update"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "active": true,
+          "position": 3,
+          "attrs": [
+            {
+              "text": "The following sections have been updated: Privacy Policy, Data Retention, and Cookie Usage. These changes take effect on April 1, 2026."
+            }
+          ]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 4,
+          "attrs": [
+            {
+              "btn_color": "#D94A4A",
+              "destination": "",
+              "destination_type": "dismiss",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "Back to Feed",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#ffffff"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "categories": [],
+  "total_unread": 1,
+  "inbox_items": [
+    {
+      "guid": "feed-image-only-guid-001",
+      "campaign_guid": "feed-image-only-campaign-001",
+      "inbox_item_guid": "inbox-image-only-001",
+      "is_campaign_unread": true,
+      "type": "card",
+      "allow_reply": false,
+      "last_interaction_at": 1735689600,
+      "expiry_at": 1893456000,
+      "front": [
+        {
+          "type": "image",
+          "active": true,
+          "position": 1,
+          "attrs": [
+            {
+              "height": 200,
+              "width": 350,
+              "image_url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='350' height='200'%3E%3Crect width='350' height='200' fill='%231565C0'/%3E%3Ctext x='175' y='110' text-anchor='middle' fill='white' font-size='20' font-family='Arial'%3EImage Only Card%3C/text%3E%3C/svg%3E",
+              "name": "image-only-card"
+            }
+          ]
+        },
+        {
+          "type": "call_to_action",
+          "active": true,
+          "position": 2,
+          "attrs": [
+            {
+              "btn_color": "",
+              "destination": "",
+              "destination_type": "dismiss",
+              "destination_url": "",
+              "in_app_events": null,
+              "label": "Dismiss",
+              "order_number": 0,
+              "show_in_app": true,
+              "show_btn": true,
+              "txt_color": "#1565C0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WEB SDK DEV</title>
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../feed/index.html">Feed</a></li>
+      </ul>
+    </nav>
+
+    <script>
+      (function (p, u, l, s, a, t, e) {
+        // add a queue event here
+        var PulsateSDK = PulsateSDK || {};
+        PulsateSDK.init =
+          PulsateSDK.init ||
+          function () {
+            (PulsateSDK.q = PulsateSDK.q || []).push(...arguments);
+          };
+
+        PulsateSDK.showFeed =
+          PulsateSDK.showFeed ||
+          function () {
+            (PulsateSDK.q = PulsateSDK.q || []).push({
+              c: "showFeed",
+              args: arguments,
+            });
+          };
+
+        p.PulsateSDK = PulsateSDK;
+        PulsateSDK.init({ key: a });
+        var x = document.createElement(l);
+        x.type = "module";
+        x.async = true;
+        // x.src = s;
+        x.src = "../src/main.ts";
+        var y = u.getElementsByTagName(l)[0];
+        y.parentNode.insertBefore(x, y);
+      })(
+        window,
+        document,
+        "script",
+        "https://web.pulsatehq.com/web-sdk.js",
+        // "<YOUR-WEB-SDK-KEY-HERE>"
+        "<YOUR-WEB-SDK-KEY-HERE>"
+      );
+    </script>
+    <script>
+      PulsateSDK.showFeed("pulsate-feed");
+    </script>
+  </body>
+</html>
