@@ -163,6 +163,17 @@ npm run dev
 
 Opens the demo pages in `demo/` (Home and Feed), which load the SDK straight from `src/` with hot reload. Replace `<YOUR-WEB-SDK-KEY-HERE>` in the demo HTML with a real key before testing.
 
+## Releasing
+
+Releases are fully automated:
+
+1. Commit to `main` using [Conventional Commits](https://www.conventionalcommits.org/) (`feat: ...`, `fix: ...`, `feat!: ...` for breaking changes).
+2. [release-please](https://github.com/googleapis/release-please) opens/updates a "chore(main): release x.y.z" PR with the version bump and `CHANGELOG.md`.
+3. Merging that PR creates the `vx.y.z` tag and GitHub Release.
+4. The `Publish to npm` workflow runs the tests and publishes to npm with provenance. Stable versions go to the `latest` dist-tag, prereleases (`1.1.0-beta.1`) to `next`.
+
+Never run `npm publish` or `npm version` by hand.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
