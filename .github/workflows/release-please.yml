@@ -5,16 +5,25 @@ on:
     branches: [main]
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
+      # Org-owned GitHub App rather than a PAT: the token is not tied to an
+      # individual, and unlike GITHUB_TOKEN its pushes and PRs do trigger
+      # ci.yml, so the release PR is covered by the same checks as any other.
+      - name: Get token
+        id: get_token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.PULSATE_GH_APP_ID }}
+          private-key: ${{ secrets.PULSATE_GH_APP_PRIVATE_KEY }}
+          repositories: "pulsatehq-web-sdk"
+
       - uses: googleapis/release-please-action@v4
         with:
-          # PAT so the release PR triggers ci.yml (GITHUB_TOKEN-created PRs don't)
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ steps.get_token.outputs.token }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
