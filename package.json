@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open /demo/",
     "build": "tsc && vite build --mode stage",
     "build:prod": "tsc && vite build",
     "test:pw": "npx playwright test --config=test/playwright/playwright.config.ts",

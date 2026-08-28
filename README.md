@@ -154,6 +154,15 @@ import Pulsate, { type User, type PulsateOptions } from "@pulsatehq/web-sdk";
 Both ESM and CommonJS are provided, and the declarations resolve under `node16`,
 `nodenext`, `bundler` and legacy `node10` module resolution.
 
+## Development
+
+```
+npm install
+npm run dev
+```
+
+Opens the demo pages in `demo/` (Home and Feed), which load the SDK straight from `src/` with hot reload. Replace `<YOUR-WEB-SDK-KEY-HERE>` in the demo HTML with a real key before testing.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
