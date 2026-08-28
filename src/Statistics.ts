@@ -1,7 +1,7 @@
-import { InappEventPayload } from "./types/notification.type";
-import { GUID, UserActionKey } from "./types/lib";
-import { getTimestampInSeconds } from "./service";
-import { saveInappEvent, saveStatistic } from "./api";
+import { InappEventPayload } from "./types/notification.type.js";
+import { GUID, UserActionKey } from "./types/lib.js";
+import { getTimestampInSeconds } from "./service.js";
+import { saveInappEvent, saveStatistic } from "./api.js";
 
 export class Statistics {
   static #sentMap: Map<GUID, UserActionKey[]> = new Map();

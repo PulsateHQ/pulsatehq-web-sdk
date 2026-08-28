@@ -4,8 +4,8 @@ declare global {
   }
 }
 
-import PulsateSDKModel from "./PulsateSDK";
-import { setApiUrl } from "./apiUrl";
+import PulsateSDKModel from "./PulsateSDK.js";
+import { setApiUrl } from "./apiUrl.js";
 import "./styles/preview.css";
 
 (function (p) {

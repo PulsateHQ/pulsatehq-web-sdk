@@ -1,3 +1,3 @@
-import * as DOM from "./DOM";
+import * as DOM from "./DOM.js";
 
 export { DOM };

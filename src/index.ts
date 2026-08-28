@@ -1,11 +1,6 @@
-import PulsateSDKModel from "./PulsateSDK";
-import { setApiUrl } from "./apiUrl";
-import { User } from "./types/lib";
-
-// Bundled into the package as "@pulsatehq/web-sdk/styles.css" rather than
-// fetched at runtime, so a pinned version never renders with styles it was
-// not published with.
-import "./styles/preview.css";
+import PulsateSDKModel from "./PulsateSDK.js";
+import { setApiUrl } from "./apiUrl.js";
+import { User } from "./types/lib.js";
 
 export interface PulsateOptions {
   /** Web SDK key, from App settings → Web SDK Credentials. */
@@ -73,6 +68,6 @@ export default class PulsateSDK {
   }
 }
 
-export { DEFAULT_API_URL } from "./apiUrl";
-export * from "./types/lib";
-export * from "./types/notification.type";
+export { DEFAULT_API_URL } from "./apiUrl.js";
+export * from "./types/lib.js";
+export * from "./types/notification.type.js";

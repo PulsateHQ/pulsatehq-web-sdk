@@ -151,8 +151,8 @@ package root.
 import Pulsate, { type User, type PulsateOptions } from "@pulsatehq/web-sdk";
 ```
 
-Both ESM and CommonJS are provided, and the declarations resolve under `node16`,
-`nodenext`, `bundler` and legacy `node10` module resolution.
+The package is ESM only. The declarations resolve under `node16`, `nodenext`,
+`bundler` and legacy `node10` module resolution.
 
 ## Development
 

@@ -1,4 +1,4 @@
-import { FeedActionKey, GUID } from "../types/lib";
+import { FeedActionKey, GUID } from "../types/lib.js";
 import {
   FeedPostNotification,
   NotificationAttrCallToAction,
@@ -8,7 +8,7 @@ import {
   NotificationAttrRichMedia,
   NotificationAttrTable,
   NotificationAttrText,
-} from "../types/notification.type";
+} from "../types/notification.type.js";
 
 export class FeedPost {
   static createFeedContent(

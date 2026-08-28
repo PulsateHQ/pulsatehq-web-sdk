@@ -1,6 +1,6 @@
-import { Feed } from "./Feed/Feed";
-import { InAppLarge } from "./Inapp/InAppLarge";
-import { Statistics } from "./Statistics";
+import { Feed } from "./Feed/Feed.js";
+import { InAppLarge } from "./Inapp/InAppLarge.js";
+import { Statistics } from "./Statistics.js";
 import {
   InAppNotificationLarge,
   NotificationAttrCallToAction,
@@ -10,10 +10,10 @@ import {
   NotificationAttrImageHeaderWithMessage,
   NotificationAttrAdminHeaderWithMessage,
   InAppNotificationSmall,
-} from "./types/notification.type";
-import { endSession, fetchBranding, startSession, updateSession } from "./api";
-import { GUID, User } from "./types/lib";
-import { DOM } from "./DOM";
+} from "./types/notification.type.js";
+import { endSession, fetchBranding, startSession, updateSession } from "./api.js";
+import { GUID, User } from "./types/lib.js";
+import { DOM } from "./DOM/index.js";
 
 export interface PulsateSDKModelOptions {
   /**

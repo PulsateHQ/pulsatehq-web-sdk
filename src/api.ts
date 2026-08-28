@@ -1,7 +1,7 @@
-import { getApiUrl } from "./apiUrl";
-import { GUID, User, UserActionKey } from "./types/lib";
-import { Feed, InappEventPayload } from "./types/notification.type";
-import PWSError from "./PWSError";
+import { getApiUrl } from "./apiUrl.js";
+import { GUID, User, UserActionKey } from "./types/lib.js";
+import { Feed, InappEventPayload } from "./types/notification.type.js";
+import PWSError from "./PWSError.js";
 
 function get(url: string, data: Record<string, string>, key: GUID) {
   return fetch(`${url}?${new URLSearchParams(data)}`, {

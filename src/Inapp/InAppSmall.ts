@@ -1,12 +1,12 @@
-import { GUID, UserActionKey } from "../types/lib";
-import { DOM } from "../DOM";
-import { Statistics } from "../Statistics";
+import { GUID, UserActionKey } from "../types/lib.js";
+import { DOM } from "../DOM/index.js";
+import { Statistics } from "../Statistics.js";
 import {
   NotificationAttrImageHeaderWithMessage,
   InAppNotificationSmall,
   NotificationAttrCallToAction,
   NotificationAttrText,
-} from "../types/notification.type";
+} from "../types/notification.type.js";
 
 export class InAppSmall {
   constructor(

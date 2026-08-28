@@ -1,17 +1,17 @@
-import { getApiUrl } from "../apiUrl";
-import { GUID, UserActionKey } from "../types/lib";
+import { getApiUrl } from "../apiUrl.js";
+import { GUID, UserActionKey } from "../types/lib.js";
 import {
   FeedPostNotification,
   Feed as FeedType,
   NotificationAttrImage,
   NotificationAttrRichMedia,
-} from "../types/notification.type";
-import { deleteNotification, fetchFeed } from "../api";
-import { DOM } from "../DOM";
-import { isInViewport, timeSince } from "../service";
-import { Statistics } from "../Statistics";
-import { FeedPost } from "./FeedPost";
-import { TRASH_ICON } from "./icons";
+} from "../types/notification.type.js";
+import { deleteNotification, fetchFeed } from "../api.js";
+import { DOM } from "../DOM/index.js";
+import { isInViewport, timeSince } from "../service.js";
+import { Statistics } from "../Statistics.js";
+import { FeedPost } from "./FeedPost.js";
+import { TRASH_ICON } from "./icons.js";
 
 export class Feed {
   #feedPosts: null | FeedType = null;

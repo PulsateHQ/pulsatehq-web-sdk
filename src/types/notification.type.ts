@@ -1,4 +1,4 @@
-import { GUID, UTCTimestamp, DestinationType } from "./lib";
+import { GUID, UTCTimestamp, DestinationType } from "./lib.js";
 
 export interface InAppNotificationLarge {
   allow_reply: boolean;

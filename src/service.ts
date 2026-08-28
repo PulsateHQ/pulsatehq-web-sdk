@@ -1,4 +1,4 @@
-import { UTCTimestamp } from "./types/lib";
+import { UTCTimestamp } from "./types/lib.js";
 
 export function isInViewport(el: Element) {
   const rect = el.getBoundingClientRect();

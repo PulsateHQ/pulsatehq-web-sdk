@@ -10,8 +10,12 @@
     "outDir": "dist-npm",
 
     // Consumers resolve the emitted specifiers themselves, and tsc does not
-    // rewrite them at emit. A ".ts" suffix surviving into a published .d.ts
-    // would not resolve for anyone, so the extension is disallowed here.
+    // rewrite them at emit, so src/ has to write them the way a strict
+    // consumer reads them: "./x.js", "./dir/index.js". Building under
+    // "nodenext" makes an extensionless or ".ts" import a build error here
+    // instead of a broken declaration in the published package.
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "allowImportingTsExtensions": false
   },
 

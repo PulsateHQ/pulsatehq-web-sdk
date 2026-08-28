@@ -1,13 +1,13 @@
-import {GUID, InappActionKey, UserActionKey} from "../types/lib";
-import {DOM} from "../DOM";
-import {Statistics} from "../Statistics";
+import {GUID, InappActionKey, UserActionKey} from "../types/lib.js";
+import {DOM} from "../DOM/index.js";
+import {Statistics} from "../Statistics.js";
 import {
     InAppNotificationLarge,
     NotificationAttrCallToAction,
     NotificationAttrHeadline,
     NotificationAttrImage,
     NotificationAttrText,
-} from "../types/notification.type";
+} from "../types/notification.type.js";
 
 export class InAppLarge {
     constructor(
