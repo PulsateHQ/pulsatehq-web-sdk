@@ -23,9 +23,6 @@ jobs:
 
       - run: npm ci
 
-      - name: Ensure npm >= 11.5 (OIDC support)
-        run: npm install -g npm@latest && npm -v
-
       - name: Check tag matches package.json version
         run: |
           TAG="${GITHUB_REF_NAME#v}"
