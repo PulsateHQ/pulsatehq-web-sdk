@@ -710,3 +710,33 @@
     padding: 0 40px;
   }
 }
+
+/*** Rich text ***/
+.pws-text--rich {
+  white-space: normal;
+  line-height: 1.6;
+}
+
+.pws-text--rich p {
+  margin: 0 0 1em;
+}
+
+.pws-text--rich ul {
+  list-style: disc outside;
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.pws-text--rich ol {
+  list-style: decimal outside;
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.pws-text--rich li {
+  margin: 0.25em 0;
+}
+
+.pws-text--rich > :last-child {
+  margin-bottom: 0;
+}

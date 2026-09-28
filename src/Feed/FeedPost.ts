@@ -1,3 +1,4 @@
+import { richTextClass } from "../richText.js";
 import { FeedActionKey, GUID } from "../types/lib.js";
 import {
   FeedPostNotification,
@@ -114,10 +115,12 @@ export class FeedPost {
   }
 
   static createText(item: NotificationAttrText, classSuffix?: string): string {
+    const text = item.attrs[0].text;
+    const richClass = richTextClass(text);
     return `
     <div  class="pws-text pws-text-feed ${
       classSuffix ? `pws-text-${classSuffix}` : ""
-    }">${item.attrs[0].text}</div>
+    }${richClass}">${text}</div>
     `;
   }
 

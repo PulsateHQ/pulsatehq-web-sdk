@@ -1,0 +1,21 @@
+/*
+ * Reproduces the host page's CSS reset so the visual tests render under the same
+ * conditions as production.
+ *
+ * The hosted feed at https://sdk.pulsatehq.com ships Tailwind Preflight, which
+ * contains exactly this rule. Verified 2026-09-25 against
+ * https://sdk.pulsatehq.com/assets/index-CHTbciKL.css:
+ *
+ *     ol,ul,menu{list-style:none}
+ *
+ * Preflight does not reset list margin or padding, so neither does this file.
+ *
+ * Without this, the harness renders on browser defaults, bullets appear for free,
+ * and a list regression test passes while production is broken. That is II-92.
+ * Do not remove: harness-is-hostile.spec.ts asserts this rule is in effect.
+ */
+ol,
+ul,
+menu {
+  list-style: none;
+}

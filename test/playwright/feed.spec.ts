@@ -35,6 +35,10 @@ const feedTextOnlyResponse = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/feed-text-only.json'), 'utf-8')
 );
 
+const feedRichListResponse = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/feed-rich-list.json'), 'utf-8')
+);
+
 const feedHeadlineOnlyResponse = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/feed-headline-only.json'), 'utf-8')
 );
@@ -382,5 +386,42 @@ test.describe('Feed Cards - Narrow Viewport (below 750px breakpoint)', () => {
     await page.locator('.pws-event[data-destination="card_back"]').first().click();
     await page.waitForSelector('.pws-feed-back', { state: 'visible' });
     await expect(page).toHaveScreenshot('feed-narrow-card-back.png');
+  });
+});
+
+test.describe('Feed Rich Text Lists - Visual', () => {
+  test.beforeEach(async ({ page }) => {
+    await mockCommonRoutes(page);
+
+    await page.route('**/api/v1/notification/feed**', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(feedRichListResponse),
+      })
+    );
+
+    await page.goto('/test/visual/feed.html');
+    await page.waitForSelector('.pws-feedpost', { state: 'visible' });
+  });
+
+  test('bold renders, confirming the body is live HTML', async ({ page }) => {
+    await expect(page.locator('.pws-text strong')).toHaveCount(1);
+  });
+
+  test('bullet markers survive the host list reset', async ({ page }) => {
+    const listStyleType = await page
+      .locator('.pws-text ul')
+      .first()
+      .evaluate((el) => getComputedStyle(el).listStyleType);
+
+    expect(
+      listStyleType,
+      'feed post bullets must render even though the host page resets list-style'
+    ).toBe('disc');
+  });
+
+  test('rich text feed post with a bullet list', async ({ page }) => {
+    await expect(page).toHaveScreenshot('feed-rich-list.png');
   });
 });
