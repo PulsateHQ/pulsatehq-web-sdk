@@ -43,6 +43,10 @@ const brandedSecondaryResponse = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/inapp-large-branded-secondary.json'), 'utf-8')
 );
 
+const richListResponse = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/inapp-large-rich-list.json'), 'utf-8')
+);
+
 test.describe('InApp Large Modal - Visual', () => {
   test.beforeEach(async ({ page }) => {
     await mockCommonRoutes(page, sessionResponse);
@@ -229,5 +233,34 @@ test.describe('InApp Large Modal - Button Assertions', () => {
   test('URL button has correct href attribute', async ({ page }) => {
     const urlButton = page.locator('.pws-cta-item[data-destination="url"]');
     await expect(urlButton).toHaveAttribute('href', 'https://example.com/primary');
+  });
+});
+
+test.describe('InApp Large Rich Text Lists - Visual', () => {
+  test.beforeEach(async ({ page }) => {
+    await mockCommonRoutes(page, richListResponse);
+
+    await page.goto('/test/visual/inapp-large.html');
+    await page.waitForSelector('.pws-modal', { state: 'visible' });
+  });
+
+  test('bold renders, confirming the body is live HTML', async ({ page }) => {
+    await expect(page.locator('.pws-text strong')).toHaveCount(1);
+  });
+
+  test('bullet markers survive the host list reset', async ({ page }) => {
+    const listStyleType = await page
+      .locator('.pws-text ul')
+      .first()
+      .evaluate((el) => getComputedStyle(el).listStyleType);
+
+    expect(
+      listStyleType,
+      'in-app bullets must render even though the host page resets list-style'
+    ).toBe('disc');
+  });
+
+  test('rich text in-app with a bullet list', async ({ page }) => {
+    await expect(page).toHaveScreenshot('inapp-large-rich-list.png');
   });
 });

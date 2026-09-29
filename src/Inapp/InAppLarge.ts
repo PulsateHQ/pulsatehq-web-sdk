@@ -1,3 +1,4 @@
+import { richTextClass } from "../richText.js";
 import {GUID, InappActionKey, UserActionKey} from "../types/lib.js";
 import {DOM} from "../DOM/index.js";
 import {Statistics} from "../Statistics.js";
@@ -156,8 +157,10 @@ export class InAppLarge {
     }
 
     private createText(item: NotificationAttrText): string {
+        const text = item.attrs[0].text;
+        const richClass = richTextClass(text);
         return `
-      <div class="pws-text">${item.attrs[0].text}</div>
+      <div class="pws-text${richClass}">${text}</div>
     `;
     }
 

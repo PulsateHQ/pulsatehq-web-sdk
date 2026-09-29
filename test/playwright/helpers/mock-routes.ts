@@ -57,10 +57,15 @@ export async function mockCommonRoutes(
     })
   );
 
-  // Intercept the CSS that DOM.attachStylesheet() loads from API URL.
-  // Only intercepts the runtime fetch (contains "undefined" in path), not the
-  // harness <link> that loads /dist/web-sdk.css with actual styles.
-  await page.route('**/undefined/web-sdk.css', (route) => {
-    route.fulfill({ status: 200, contentType: 'text/css', body: '' });
+  // Intercept the CSS that DOM.attachStylesheet() loads from the API URL.
+  // apiUrl.ts defaults to https://web.pulsatehq.com, so without this the harness
+  // pulls the live production stylesheet and appends it after the local
+  // <link href="../../dist/web-sdk.css">, silently overriding every style change
+  // under test. Anything but the local dist build is served empty.
+  await page.route(/\/web-sdk\.css(\?.*)?$/, (route) => {
+    if (route.request().url().includes('/dist/web-sdk.css')) {
+      return route.continue();
+    }
+    return route.fulfill({ status: 200, contentType: 'text/css', body: '' });
   });
 }
