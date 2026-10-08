@@ -5,7 +5,6 @@
   "packages": {
     ".": {
       "package-name": "@pulsatehq/web-sdk",
-      "release-as": "1.0.0",
       "changelog-sections": [
         { "type": "feat", "section": "Features" },
         { "type": "fix", "section": "Bug Fixes" },
