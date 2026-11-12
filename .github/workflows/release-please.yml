@@ -18,7 +18,7 @@ jobs:
         id: get_token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ secrets.PULSATE_GH_APP_ID }}
+          client-id: ${{ secrets.PULSATE_GH_APP_ID }}
           private-key: ${{ secrets.PULSATE_GH_APP_PRIVATE_KEY }}
           repositories: "pulsatehq-web-sdk"
 
