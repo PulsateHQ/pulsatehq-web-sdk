@@ -1,0 +1,98 @@
+name: Renovate
+# Self-hosted Renovate for this repository only, the setup other Pulsate
+# repositories use. What it updates, when, and what waits for approval is in
+# renovate.json; this file only runs it.
+#
+# Settings it needs (an organisation admin):
+#   - the Pulsate GitHub App installed on this repository, granting every
+#     permission-* input below, vulnerability alerts read included. The token
+#     step fails if the App lacks any one of them;
+#   - this repository in the repository access of the organisation secrets
+#     PULSATE_GH_APP_ID and PULSATE_GH_APP_PRIVATE_KEY (release-please.yml
+#     already uses them);
+#   - Issues enabled on the repository: the Dependency Dashboard is an issue,
+#     and every update that waits for approval is approved there;
+#   - optionally Dependabot alerts enabled on the repository, so GitHub's
+#     advisories reach Renovate as well as OSV's (the App permission above is
+#     required either way). Leave Dependabot security updates off, or both
+#     bots open a pull request for the same fix.
+# Without the secrets the token step fails and nothing else runs.
+
+on:
+  # Once a week, on Monday, the day renovate.json's weekly and monthly
+  # schedules allow (both in UTC). Security fixes and Dependency Dashboard
+  # ticks wait for it too; Run workflow handles anything that cannot wait, or
+  # a dropped scheduled run. Off the hour, when scheduled runs are delayed
+  # least, and not at the minute another Pulsate repository's Renovate uses.
+  schedule:
+    - cron: '43 5 * * 1'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  # Two runs on the same branches would race each other's force-pushes.
+  group: renovate
+  cancel-in-progress: false
+
+jobs:
+  renovate:
+    name: Renovate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # No checkout, so the workflow-level `permissions: {}` is enough: Renovate
+    # clones the repository and reads renovate.json itself, with the App token.
+    steps:
+      - name: Get the App token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          # `app-id` is deprecated in v3. GitHub accepts the App ID as well as
+          # the client ID here, so the organisation's App ID secret works as
+          # is (release-please.yml does the same).
+          # Accepted risk: these are organisation secrets that no environment
+          # gates, so no reviewer or branch rule stands between a workflow
+          # change and the App key; release-please.yml takes the same risk
+          # with the same secrets.
+          client-id: ${{ secrets.PULSATE_GH_APP_ID }} # zizmor: ignore[secrets-outside-env]
+          private-key: ${{ secrets.PULSATE_GH_APP_PRIVATE_KEY }} # zizmor: ignore[secrets-outside-env]
+          repositories: pulsatehq-web-sdk
+          # Renovate's documented set for a self-hosted App, minus what only
+          # automerge and reviewer assignment use (merge queues, organisation
+          # members, checks write) and administration read, which Renovate
+          # uses only to read branch protection for `rebaseWhen: auto`
+          # (renovate.json sets `conflicted`). Without these inputs the token
+          # carries everything the App is granted.
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+          # Updating the actions pinned in .github/ is a workflow-file change.
+          permission-workflows: write
+          permission-statuses: write
+          permission-checks: read
+          permission-vulnerability-alerts: read
+
+      - name: Renovate
+        uses: renovatebot/github-action@266fef21329c44765ad42f9dea1f01f5d2d91084 # v46.3.13
+        with:
+          # The action's default is the floating `44` image tag. Pinned by tag
+          # and digest, since the image receives the App token; Renovate
+          # proposes bumps to both, once a month, in a pull request of its
+          # own. ghcr.io reports no release dates, so the 3-day release age
+          # cannot apply to the image: whoever merges that pull request checks
+          # the age of the release (renovate.json puts the reminder on it).
+          renovate-image: ghcr.io/renovatebot/renovate:44.223.1@sha256:4d82316637556d793f1c0e248e003a3842ebadecea0a9f4e9b77c12421da2122
+          token: ${{ steps.app-token.outputs.token }}
+        # The action passes RENOVATE_* variables into the container as they are.
+        env:
+          # A named repository rather than autodiscovery, so a run can never
+          # reach further than this one even if the App's installation grows.
+          RENOVATE_REPOSITORIES: PulsateHQ/pulsatehq-web-sdk
+          # renovate.json is already on main: never open an onboarding PR.
+          RENOVATE_ONBOARDING: 'false'
+          # Renovate otherwise exits 0 when a repository run aborts on a
+          # warn- or info-level error (rate limit, integration unauthorized, a
+          # registry outage), and the scheduled run stays green while nothing
+          # is updated. A PR merged during a run also aborts it
+          # (repository-changed); the next run is normally green.
+          RENOVATE_EXIT_CODE_FOR_ERRORS: 'true'

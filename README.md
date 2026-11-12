@@ -174,6 +174,12 @@ Releases are fully automated:
 
 Never run `npm publish` or `npm version` by hand.
 
+Dependency updates from Renovate are `chore(deps)` commits: they never open a release PR and do not appear in `CHANGELOG.md`, but build tooling among them changes the published bundle. Before merging the release PR, check what changed in the toolchain since the last release:
+
+```bash
+git diff vx.y.z..main -- package.json package-lock.json .nvmrc
+```
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
