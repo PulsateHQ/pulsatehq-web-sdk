@@ -9,12 +9,12 @@
     "build:prod": "tsc && vite build",
     "test:pw": "npx playwright test --config=test/playwright/playwright.config.ts",
     "test:pw:update": "npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots",
-    "test:pw:update:linux": "docker run --rm -v \"$(pwd):/work\" -w /work mcr.microsoft.com/playwright:v1.58.2-noble bash -c 'npm ci && npm run build && npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots'",
+    "test:pw:update:linux": "docker run --rm -v \"$(pwd):/work\" -w /work mcr.microsoft.com/playwright:v1.65.0-resolute bash -c 'npm ci && npm run build && npx playwright test --config=test/playwright/playwright.config.ts --update-snapshots'",
     "build:npm": "vite build --config vite.npm.config.js && tsc -p tsconfig.build.json",
     "prepack": "npm run build:npm"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "^1.65.0",
     "serve": "^14.2.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
