@@ -178,7 +178,7 @@ Playwright automatically picks the correct set based on the platform.
 
 **Why Docker for Linux baselines?**
 
-You can't generate Linux baselines on a Mac natively. The `npm run test:pw:update:linux` script runs a Playwright Docker container (`mcr.microsoft.com/playwright:v1.58.2-noble`) that:
+You can't generate Linux baselines on a Mac natively. The `npm run test:pw:update:linux` script runs a Playwright Docker container (`mcr.microsoft.com/playwright:v1.65.0-resolute`) that:
 1. Installs dependencies (`npm ci`)
 2. Builds the SDK (`npm run build`) — must happen inside the container because font rendering affects the build output screenshots
 3. Runs tests with `--update-snapshots` to generate `-chromium-linux.png` baselines
