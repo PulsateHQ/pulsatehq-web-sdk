@@ -21,9 +21,13 @@ name: Renovate
 on:
   # Once a week, on Monday, the day renovate.json's weekly and monthly
   # schedules allow (both in UTC). Security fixes and Dependency Dashboard
-  # ticks wait for it too; Run workflow handles anything that cannot wait, or
-  # a dropped scheduled run. Off the hour, when scheduled runs are delayed
-  # least, and not at the minute another Pulsate repository's Renovate uses.
+  # ticks wait for it too; Run workflow handles anything that cannot wait.
+  # A manual run creates routine branches only on a Monday (the first Monday
+  # for lock file maintenance and the Renovate image). To recover a dropped
+  # run on another day, run it once, tick the updates under "Awaiting
+  # Schedule" on the Dependency Dashboard, and run it again. Off the hour, when
+  # scheduled runs are delayed least, and not at the minute another Pulsate
+  # repository's Renovate uses.
   schedule:
     - cron: '43 5 * * 1'
   workflow_dispatch:
@@ -94,5 +98,7 @@ jobs:
           # warn- or info-level error (rate limit, integration unauthorized, a
           # registry outage), and the scheduled run stays green while nothing
           # is updated. A PR merged during a run also aborts it
-          # (repository-changed); the next run is normally green.
+          # (repository-changed); the next run is normally green. A missing or
+          # disabled renovate.json still exits 0 (disabled-no-config,
+          # disabled-by-config): the run is green and does nothing.
           RENOVATE_EXIT_CODE_FOR_ERRORS: 'true'
