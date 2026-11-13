@@ -54,12 +54,10 @@
       "description": "The Playwright Docker image used to regenerate the Linux baselines (package.json's test:pw:update:linux and test/README.md) must match @playwright/test. Looked up as the npm package, so it gets the same version in the same branch (mcr.microsoft.com has no release timestamps, the npm registry does). If the image for a new version is not pushed yet, test:pw:update:linux fails to pull it until it is.",
       "managerFilePatterns": ["/^package\\.json$/", "/^test/README\\.md$/"],
       "matchStrings": [
-        "mcr\\.microsoft\\.com/playwright:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-resolute"
+        "mcr\\.microsoft\\.com/playwright:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-[a-z]+"
       ],
       "depNameTemplate": "@playwright/test",
-      "packageNameTemplate": "@playwright/test",
-      "datasourceTemplate": "npm",
-      "versioningTemplate": "npm"
+      "datasourceTemplate": "npm"
     }
   ],
   "packageRules": [
@@ -88,18 +86,17 @@
       ]
     },
     {
-      "description": "Every npm dependency can change what ships (dist/ and dist-npm/), whatever its type: dependencies, peerDependencies, or a build tool or plugin in devDependencies. The exceptions are the test-only packages negated in matchPackageNames, which this rule leaves to the rules above. A new test-only package has to be added to that exemption list to become routine. Every update waits for a tick and gets a pull request of its own (the null group takes it back out of the dev dependencies group).",
+      "description": "Every npm dependency can change what ships (dist/ and dist-npm/), whatever its type: dependencies, peerDependencies, or a build tool or plugin in devDependencies. The exceptions are the test-only packages negated in matchPackageNames, which this rule leaves to the rules above. A new test-only package has to be added to this exemption list and to the same list in the devDependencies pin rule below to become routine. Every update waits for a tick and gets a pull request of its own (the null group takes it back out of the dev dependencies group).",
       "matchManagers": ["npm"],
       "matchPackageNames": ["!serve", "!@playwright/test"],
       "dependencyDashboardApproval": true,
       "groupName": null,
-      "groupSlug": null,
       "prBodyNotes": [
         "**Changes what ships.** Run `npm run build` and `npm run build:npm` on `main` and on this branch and diff `dist/` and `dist-npm/`. Check that the syntax target of the output has not moved (neither vite config sets `build.target`, so it follows the vite default). A security fix opens here without the approval step."
       ]
     },
     {
-      "description": "Build tools and plugins in devDependencies are pinned to exact versions, so that lock file maintenance cannot move them inside a range without a tick. A newly added one with a ^ range first gets a pin pull request, itself behind a tick; its updates follow once that is merged, so tick the pin (or add the package with an exact version). Only devDependencies: a range in dependencies or peerDependencies is what consumers of the package resolve against, and pinning it is a decision for whoever adds one.",
+      "description": "Build tools and plugins in devDependencies are pinned to exact versions, so that lock file maintenance cannot move them inside a range without a tick. A newly added one with a ^ range first gets a pin pull request, itself behind a tick; its updates follow once that is merged, so tick the pin (or add the package with an exact version). Only devDependencies: a range in dependencies or peerDependencies is what consumers of the package resolve against, and pinning it is a decision for whoever adds one. The negated test-only packages match the exemption list in the rule above; keep the two lists the same.",
       "matchManagers": ["npm"],
       "matchDepTypes": ["devDependencies"],
       "matchPackageNames": ["!serve", "!@playwright/test"],
