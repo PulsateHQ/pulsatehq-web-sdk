@@ -61,14 +61,6 @@
       "dependencyDashboardApproval": true
     },
     {
-      "description": "Test-only dev dependencies, grouped.",
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["!@playwright/test"],
-      "groupName": "dev dependencies",
-      "groupSlug": "dev-dependencies"
-    },
-    {
       "description": "Playwright package and image tag in one PR.",
       "matchPackageNames": ["@playwright/test"],
       "groupName": "Playwright",
@@ -79,37 +71,19 @@
       ]
     },
     {
-      "description": "Any other npm dependency can change the bundle: approval, own PR. Keep the exemption list in step with the rule below.",
+      "description": "Any other npm dependency can change the bundle: approval.",
       "matchManagers": ["npm"],
       "matchPackageNames": ["!serve", "!@playwright/test"],
       "dependencyDashboardApproval": true,
-      "groupName": null,
       "prBodyNotes": [
         "Changes the bundle: build and diff `dist/` and `dist-npm/` against `main`, and check the syntax target."
       ]
-    },
-    {
-      "description": "Pin build tooling, so lock file maintenance cannot move it.",
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["devDependencies"],
-      "matchPackageNames": ["!serve", "!@playwright/test"],
-      "rangeStrategy": "pin"
     },
     {
       "description": "GitHub Actions, grouped.",
       "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions",
       "groupSlug": "github-actions"
-    },
-    {
-      "description": "release-please-action in its own PR.",
-      "matchManagers": ["github-actions"],
-      "matchPackageNames": ["googleapis/release-please-action"],
-      "groupName": "release-please-action",
-      "groupSlug": "release-please-action",
-      "prBodyNotes": [
-        "Bundles release-please: read its release notes for changes to commit parsing and versioning."
-      ]
     },
     {
       "description": "Renovate image: monthly, own PR. ghcr.io has no release dates.",
@@ -130,13 +104,6 @@
       "description": "Pins and digests have no release date.",
       "matchUpdateTypes": ["pin", "pinDigest", "digest"],
       "minimumReleaseAgeBehaviour": "timestamp-optional"
-    },
-    {
-      "description": "Node version.",
-      "matchManagers": ["nvm"],
-      "prBodyNotes": [
-        "Also changes the Node version `publish.yml` builds and publishes with."
-      ]
     }
   ]
 }
