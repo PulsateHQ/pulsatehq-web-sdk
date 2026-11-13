@@ -26,9 +26,7 @@
   "dependencyDashboardOSVVulnerabilitySummary": "unresolved",
   "vulnerabilityAlerts": {
     "labels": ["dependencies", "security"],
-    "minimumReleaseAge": null,
-    "semanticCommitType": "chore",
-    "semanticCommitScope": "deps"
+    "minimumReleaseAge": null
   },
   "lockFileMaintenance": {
     "description": "Monthly. The only way transitive dependencies move.",
