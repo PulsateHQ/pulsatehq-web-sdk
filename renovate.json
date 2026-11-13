@@ -1,12 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": [
-    "Run by .github/workflows/renovate.yml, which lists the setup it needs.",
-    "Every commit and PR title is chore(deps), security fixes included: release-please does not release on chore, so a dependency update never cuts a release by itself. Security fixes skip the wait, the schedule, the release age and the approval: those are the vulnerabilityAlerts defaults, which Renovate applies last and packageRules cannot override. vulnerabilityAlerts repeats the commit type, which packageRules would otherwise decide for them.",
-    "Every npm dependency except the test-only serve and @playwright/test can change what ships, so each of its updates waits for a tick on the Dependency Dashboard, as does every major (security fixes excepted, majors included). vite, typescript and @playwright/test are pinned to exact versions in package.json, so the monthly lock file maintenance cannot move them; only an update of their own does.",
-    "Renovate updates direct dependencies only. Transitive ones move with the monthly lock file maintenance, except exact-pinned children such as playwright and playwright-core, which move only with their parent's update.",
-    "ignorePaths is config:recommended's list without **/test/**, so the custom manager below can read test/README.md."
-  ],
+  "description": "Every Renovate commit is chore(deps), so release-please never releases for a dependency update.",
   "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "ignorePresets": [":semanticPrefixFixDepsChoreOthers"],
   "ignorePaths": [
@@ -37,21 +31,21 @@
     "semanticCommitScope": "deps"
   },
   "lockFileMaintenance": {
-    "description": "Transitive dependencies have no update of their own, and OSV and GitHub alerts cannot fix them: regenerating package-lock.json within the declared ranges is what moves them. Monthly, the first Monday, since it rewrites the whole lock file. The release age still applies through npm's --before; the branch itself has no release timestamp, so the age check must not wait for one. No PR limits: it sorts after every other branch, so the limits would starve it, and with one run a week it would then miss its first-Monday window for the month.",
+    "description": "Monthly. The only way transitive dependencies move.",
     "enabled": true,
     "schedule": ["* * 1-7 * 1"],
     "minimumReleaseAgeBehaviour": "timestamp-optional",
     "prConcurrentLimit": 0,
     "prHourlyLimit": 0,
     "prBodyNotes": [
-      "**Can change what ships.** This regenerates every package in package-lock.json within the declared ranges. Transitive build dependencies (rollup, esbuild, postcss and others) shape the bundles; vite, typescript and Playwright are pinned exactly and do not move. Run `npm run build` and `npm run build:npm` on `main` and on this branch and diff `dist/` and `dist-npm/` before merging.",
-      "If this PR carries an artifact notice that npm was re-run without `--before`, no release age was applied to this lock file: review it accordingly."
+      "Can change the bundle: build and diff `dist/` and `dist-npm/` against `main` before merging.",
+      "If npm was re-run without `--before` (see the artifact notice), the release age was not applied."
     ]
   },
   "customManagers": [
     {
       "customType": "regex",
-      "description": "The Playwright Docker image used to regenerate the Linux baselines (package.json's test:pw:update:linux and test/README.md) must match @playwright/test. Looked up as the npm package, so it gets the same version in the same branch (mcr.microsoft.com has no release timestamps, the npm registry does). If the image for a new version is not pushed yet, test:pw:update:linux fails to pull it until it is.",
+      "description": "Keeps the Playwright Docker image tag in step with @playwright/test.",
       "managerFilePatterns": ["/^package\\.json$/", "/^test/README\\.md$/"],
       "matchStrings": [
         "mcr\\.microsoft\\.com/playwright:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-[a-z]+"
@@ -62,12 +56,12 @@
   ],
   "packageRules": [
     {
-      "description": "Majors are planned work, not a weekly chore.",
+      "description": "Majors need approval.",
       "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
     },
     {
-      "description": "Test-only dependencies such as serve: one pull request for their minor and patch updates. Playwright has a rule of its own below, and the rule for what ships takes every other npm dependency back out of this group.",
+      "description": "Test-only dev dependencies, grouped.",
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames": ["!@playwright/test"],
@@ -75,51 +69,50 @@
       "groupSlug": "dev-dependencies"
     },
     {
-      "description": "@playwright/test and the Docker image tag from the custom manager in one branch. The explicit group keeps the npm package and both image tags in one branch named renovate/playwright, whatever the presets group. Pinned, so that nobody re-adds a ^ and lock file maintenance cannot move it away from the image tag. Test-only, so no approval.",
+      "description": "Playwright package and image tag in one PR.",
       "matchPackageNames": ["@playwright/test"],
       "groupName": "Playwright",
       "groupSlug": "playwright",
       "rangeStrategy": "pin",
       "prBodyNotes": [
-        "Screenshots can change with the browser. If the visual tests fail, regenerate both baseline sets (`npm run test:pw:update` on macOS and `npm run test:pw:update:linux`, see test/README.md) and review the diff.",
-        "Commit the regenerated baselines with a `test:` commit message, never `fix:` or `feat:`. With a merge commit or a rebase merge every commit on this branch reaches `main` (a squash merge copies their messages into its body), and release-please reads them all."
+        "If the visual tests fail, regenerate both baseline sets (see test/README.md) and commit them as `test:`."
       ]
     },
     {
-      "description": "Every npm dependency can change what ships (dist/ and dist-npm/), whatever its type: dependencies, peerDependencies, or a build tool or plugin in devDependencies. The exceptions are the test-only packages negated in matchPackageNames, which this rule leaves to the rules above. A new test-only package has to be added to this exemption list and to the same list in the devDependencies pin rule below to become routine. Every update waits for a tick and gets a pull request of its own (the null group takes it back out of the dev dependencies group).",
+      "description": "Any other npm dependency can change the bundle: approval, own PR. Keep the exemption list in step with the rule below.",
       "matchManagers": ["npm"],
       "matchPackageNames": ["!serve", "!@playwright/test"],
       "dependencyDashboardApproval": true,
       "groupName": null,
       "prBodyNotes": [
-        "**Changes what ships.** Run `npm run build` and `npm run build:npm` on `main` and on this branch and diff `dist/` and `dist-npm/`. Check that the syntax target of the output has not moved (neither vite config sets `build.target`, so it follows the vite default). A security fix opens here without the approval step."
+        "Changes the bundle: build and diff `dist/` and `dist-npm/` against `main`, and check the syntax target."
       ]
     },
     {
-      "description": "Build tools and plugins in devDependencies are pinned to exact versions, so that lock file maintenance cannot move them inside a range without a tick. A newly added one with a ^ range first gets a pin pull request, itself behind a tick; its updates follow once that is merged, so tick the pin (or add the package with an exact version). Only devDependencies: a range in dependencies or peerDependencies is what consumers of the package resolve against, and pinning it is a decision for whoever adds one. The negated test-only packages match the exemption list in the rule above; keep the two lists the same.",
+      "description": "Pin build tooling, so lock file maintenance cannot move it.",
       "matchManagers": ["npm"],
       "matchDepTypes": ["devDependencies"],
       "matchPackageNames": ["!serve", "!@playwright/test"],
       "rangeStrategy": "pin"
     },
     {
-      "description": "One pull request for the CI plumbing: the actions in .github/workflows. release-please-action and the Renovate image have groups of their own below.",
+      "description": "GitHub Actions, grouped.",
       "matchManagers": ["github-actions"],
       "groupName": "GitHub Actions",
       "groupSlug": "github-actions"
     },
     {
-      "description": "release-please-action out of the GitHub Actions group, into a pull request of its own: it bundles the release-please engine, which decides when and what this repository releases. After the GitHub Actions rule, so that this group wins. Majors stay behind the majors rule.",
+      "description": "release-please-action in its own PR.",
       "matchManagers": ["github-actions"],
       "matchPackageNames": ["googleapis/release-please-action"],
       "groupName": "release-please-action",
       "groupSlug": "release-please-action",
       "prBodyNotes": [
-        "**Decides releases.** This action bundles the release-please engine, which decides when and what this repository releases. Read its release notes for changes to how commits are parsed and versions are bumped."
+        "Bundles release-please: read its release notes for changes to commit parsing and versioning."
       ]
     },
     {
-      "description": "The Renovate image receives the App token, and ghcr.io publishes no release dates: without timestamp-optional the minimum release age would hold every image back for ever, and with it the age is not checked at all. So the image gets a pull request of its own, once a month, with the check left to the person who merges it. No PR limits, for the same reason as lock file maintenance: with a once-a-month window the limits would starve it. After the GitHub Actions rule, so that this group wins.",
+      "description": "Renovate image: monthly, own PR. ghcr.io has no release dates.",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["ghcr.io/renovatebot/renovate"],
       "minimumReleaseAgeBehaviour": "timestamp-optional",
@@ -129,20 +122,20 @@
       "prConcurrentLimit": 0,
       "prHourlyLimit": 0,
       "prBodyNotes": [
-        "**Runs with the App token.** The registry reports no release date, so the 3-day release age was not applied to this image. Before merging, check on github.com/renovatebot/renovate/releases that this version was published at least 3 days ago, and that the digest in the diff is the one the registry serves for that tag.",
-        "If this takes the image to 44.232.0 or later, also change `dependencyDashboardOSVVulnerabilitySummary` in renovate.json to `\"dependencyDashboard\": { \"osvVulnerabilitySummary\": \"unresolved\" }` in this pull request. Renovate migrates the old key in memory either way, but the Dependency Dashboard shows a migration notice until the file is changed."
+        "The registry has no release dates, so the 3-day release age was not applied: check the release is at least 3 days old and the digest matches the tag.",
+        "From 44.232.0, rename `dependencyDashboardOSVVulnerabilitySummary` to `dependencyDashboard.osvVulnerabilitySummary` in renovate.json."
       ]
     },
     {
-      "description": "Pins and digest updates carry no release timestamp of their own (a pin changes no version; lookup already ages a digest through the version it belongs to). Under the default timestamp-required their renovate/stability-days status would stay pending for ever.",
+      "description": "Pins and digests have no release date.",
       "matchUpdateTypes": ["pin", "pinDigest", "digest"],
       "minimumReleaseAgeBehaviour": "timestamp-optional"
     },
     {
-      "description": ".nvmrc holds a major (24), so only majors are proposed, and the majors rule gates them.",
+      "description": "Node version.",
       "matchManagers": ["nvm"],
       "prBodyNotes": [
-        "`.nvmrc` sets the Node version for both CI and `publish.yml`, so this also changes the runtime that builds and publishes the package to npm."
+        "Also changes the Node version `publish.yml` builds and publishes with."
       ]
     }
   ]
