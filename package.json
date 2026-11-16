@@ -14,10 +14,10 @@
     "prepack": "npm run build:npm"
   },
   "devDependencies": {
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "1.65.0",
     "serve": "^14.2.5",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "typescript": "5.3.3",
+    "vite": "5.0.11"
   },
   "description": "Pulsate Web SDK: in-app notifications, feed and event tracking for websites.",
   "license": "MIT",

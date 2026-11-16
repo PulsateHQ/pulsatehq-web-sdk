@@ -1,0 +1,107 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Every Renovate commit is chore(deps), so release-please never releases for a dependency update.",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "ignorePresets": [":semanticPrefixFixDepsChoreOthers"],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/vendor/**",
+    "**/examples/**",
+    "**/__tests__/**",
+    "**/tests/**",
+    "**/__fixtures__/**"
+  ],
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "labels": ["dependencies"],
+  "platformCommit": "enabled",
+  "rebaseWhen": "conflicted",
+  "schedule": ["* * * * 1"],
+  "prConcurrentLimit": 3,
+  "prHourlyLimit": 2,
+  "minimumReleaseAge": "3 days",
+  "osvVulnerabilityAlerts": true,
+  "dependencyDashboardOSVVulnerabilitySummary": "unresolved",
+  "vulnerabilityAlerts": {
+    "labels": ["dependencies", "security"],
+    "minimumReleaseAge": null
+  },
+  "lockFileMaintenance": {
+    "description": "Monthly. The only way transitive dependencies move.",
+    "enabled": true,
+    "schedule": ["* * 1-7 * 1"],
+    "minimumReleaseAgeBehaviour": "timestamp-optional",
+    "prConcurrentLimit": 0,
+    "prHourlyLimit": 0,
+    "prBodyNotes": [
+      "Can change the bundle: build and diff `dist/` and `dist-npm/` against `main` before merging.",
+      "If npm was re-run without `--before` (see the artifact notice), the release age was not applied."
+    ]
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Keeps the Playwright Docker image tag in step with @playwright/test.",
+      "managerFilePatterns": ["/^package\\.json$/", "/^test/README\\.md$/"],
+      "matchStrings": [
+        "mcr\\.microsoft\\.com/playwright:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-[a-z]+"
+      ],
+      "depNameTemplate": "@playwright/test",
+      "datasourceTemplate": "npm"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Majors need approval.",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Playwright package and image tag in one PR.",
+      "matchPackageNames": ["@playwright/test"],
+      "groupName": "Playwright",
+      "groupSlug": "playwright",
+      "rangeStrategy": "pin",
+      "prBodyNotes": [
+        "If the visual tests fail, regenerate both baseline sets (see test/README.md) and commit them as `test:`."
+      ]
+    },
+    {
+      "description": "Any other npm dependency can change the bundle: approval.",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["!serve", "!@playwright/test"],
+      "dependencyDashboardApproval": true,
+      "prBodyNotes": [
+        "Changes the bundle: build and diff `dist/` and `dist-npm/` against `main`, and check the syntax target."
+      ]
+    },
+    {
+      "description": "GitHub Actions, grouped.",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "groupSlug": "github-actions"
+    },
+    {
+      "description": "Renovate image: monthly, own PR. ghcr.io has no release dates.",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["ghcr.io/renovatebot/renovate"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional",
+      "groupName": "Renovate image",
+      "groupSlug": "renovate-image",
+      "schedule": ["* * 1-7 * 1"],
+      "prConcurrentLimit": 0,
+      "prHourlyLimit": 0,
+      "prBodyNotes": [
+        "The registry has no release dates, so the 3-day release age was not applied: check the release is at least 3 days old and the digest matches the tag.",
+        "From 44.232.0, rename `dependencyDashboardOSVVulnerabilitySummary` to `dependencyDashboard.osvVulnerabilitySummary` in renovate.json."
+      ]
+    },
+    {
+      "description": "Pins and digests have no release date.",
+      "matchUpdateTypes": ["pin", "pinDigest", "digest"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    }
+  ]
+}
